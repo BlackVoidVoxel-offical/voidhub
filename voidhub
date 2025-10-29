@@ -1,0 +1,116 @@
+--[[
+ ____            _           _    __     __    _     _   _   ___  
+|  _ \ _ __ ___ (_) ___  ___| |_  \ \   / /__ (_) __| | / | / _ \ 
+| |_) | '__/ _ \| |/ _ \/ __| __|  \ \ / / _ \| |/ _` | | || | | |
+|  __/| | | (_) | |  __/ (__| |_    \ V / (_) | | (_| | | || |_| |
+|_|   |_|  \___// |\___|\___|\__|    \_/ \___/|_|\__,_| |_(_)___/ 
+              |__/                                                
+Main Coder & Developer: BlackVoidVoxel
+Roblox: @CsonGamer1
+X: @BlackVoidVoxel
+YouTube: @BlackVoidVoxel
+Tiktok: -
+Instagram: I will not make
+Discord: @voidoffical
+
+]]
+
+---------------------------------------------------------------------------------------------------------------
+------------------------------------- Loader, Key System, Config -------------------------------------
+---------------------------------------------------------------------------------------------------------------
+
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "Void Hub | Universal V1.0",
+   Icon = 108293097839939, 
+   LoadingTitle = "Void Scripts",
+   LoadingSubtitle = "by BlackVoidVoxel",
+   ShowText = "Void Scripts", 
+   Theme = "Default", 
+
+   ToggleUIKeybind = "G", 
+
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false, 
+
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, 
+      FileName = "Void Hub"
+   },
+
+   Discord = {
+      Enabled = false, 
+      Invite = "noinvitelink", 
+      RememberJoins = true 
+   },
+
+   KeySystem = true, 
+   KeySettings = {
+      Title = "Void Hub Key System",
+      Subtitle = "Get key: linkvertise",
+      Note = "Note: This script is still in BETA so expect bugs", 
+      FileName = "Key", 
+      SaveKey = true, 
+      GrabKeyFromSite = true, 
+      Key = {"https://pastebin.com/raw/tYCdpYk5"} 
+   }
+})
+
+Rayfield:Notify({
+    Title = "Script Info",
+    Content = "This script is still in beta so expect bugs!",
+    Duration = 10,
+    Image = nil
+})
+
+
+getgenv().Window = Window
+
+local tabs = {
+    "https://raw.githubusercontent.com/BlackVoidVoxel-offical/hometab-loader/refs/heads/main/hometab",
+    "https://raw.githubusercontent.com/BlackVoidVoxel-offical/movement-loader/refs/heads/main/movement-loader",
+    "https://raw.githubusercontent.com/BlackVoidVoxel-offical/player-loader/refs/heads/main/player-loader",
+    "https://raw.githubusercontent.com/BlackVoidVoxel-offical/tp-loader/refs/heads/main/tp-loader",
+    "https://raw.githubusercontent.com/BlackVoidVoxel-offical/misc-loader/refs/heads/main/misc-loader",
+}
+
+for _, url in ipairs(tabs) do
+    local success, result = pcall(function()
+        local source = game:HttpGet(url)
+        local chunk = loadstring(source)
+        if not chunk then error("Loadstring failed: " .. tostring(url)) end
+        return chunk()
+    end)
+
+    if not success then
+        warn("❌ Error: " .. tostring(url))
+        warn(result)
+        Rayfield:Notify({
+            Title = "Loading error",
+            Content = url:match("[^/]+$") .. " Loading Unsucessful",
+            Duration = 4
+        })
+    else
+        if typeof(result) == "function" then
+            local ok, err = pcall(result, getgenv().Window)
+            if not ok then
+                warn("❌ Error: " .. tostring(url))
+                warn(err)
+            else
+                Rayfield:Notify({
+                    Title = "✅ Loaded",
+                    Content = url:match("[^/]+$"),
+                    Duration = 4
+                })
+            end
+        else
+            Rayfield:Notify({
+                Title = "✅ Loaded",
+                Content = url:match("[^/]+$"),
+                Duration = 4
+            })
+        end
+    end
+end
