@@ -74,6 +74,7 @@ local tabs = {
     "https://raw.githubusercontent.com/BlackVoidVoxel-offical/player-loader/refs/heads/main/player-loader",
     "https://raw.githubusercontent.com/BlackVoidVoxel-offical/tp-loader/refs/heads/main/tp-loader",
     "https://raw.githubusercontent.com/BlackVoidVoxel-offical/misc-loader/refs/heads/main/misc-loader",
+    "https://raw.githubusercontent.com/BlackVoidVoxel-offical/visual-tab/refs/heads/main/visual-tab",
 }
 
 for _, url in ipairs(tabs) do
